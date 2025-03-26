@@ -1,0 +1,20 @@
+.app-container {
+  min-height: 100vh;
+  background: linear-gradient(rgba(0, 0, 255, 0.7), rgba(0, 0, 255, 0.7)),
+              url('/image2.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+/* Add some basic reset styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+} 
