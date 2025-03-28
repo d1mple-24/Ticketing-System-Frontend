@@ -1,16 +1,16 @@
-//import React, {useEffect, useState} from 'react'
-import Navbar from './SampleWebsite/Navbar'
-import { useState, useEffect } from 'react'
+import React from "react";
+import Home from "./Ticket Designs/Home";
+import Trouble from "./Ticket Designs/Trouble";
 
+const App = () => {
+  const currentPath = window.location.pathname;
 
-function App() {
+  return (
+    <>
+      {currentPath === "/" && <Home />}
+      {currentPath === "/troubleshooting" && <Trouble />}
+    </>
+  );
+};
 
-  return(
-    <div>
-      <Navbar />
-      {/* You can display your backendData here if needed */}
-    </div>
-  )
-}
-
-export default App
+export default App;
