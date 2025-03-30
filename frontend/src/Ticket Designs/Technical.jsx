@@ -9,8 +9,18 @@ import {
   FormControlLabel,
   FormGroup,
   IconButton,
+  Snackbar,
+  Alert,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  List,
+  ListItem,
+  ListItemText,
 } from "@mui/material";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import ReCAPTCHA from "react-google-recaptcha";
 
 const TechnicalAssistanceForm = () => {
   const [formData, setFormData] = useState({
@@ -22,6 +32,10 @@ const TechnicalAssistanceForm = () => {
     description: "",
     consent: false,
   });
+
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [reviewDialogOpen, setReviewDialogOpen] = useState(false);
+  const [captchaVerified, setCaptchaVerified] = useState(false);
 
   const departments = ["IT", "HR", "Finance", "Admin"];
   const issueTypes = ["Hardware", "Software", "Network", "Other"];
@@ -41,7 +55,11 @@ const TechnicalAssistanceForm = () => {
     });
   };
 
-  const handleSubmit = () => {
+  const handleCaptchaChange = (value) => {
+    setCaptchaVerified(!!value);
+  };
+
+  const handleReview = () => {
     if (!formData.email.includes("@")) {
       alert("Please enter a valid email address.");
       return;
@@ -52,12 +70,18 @@ const TechnicalAssistanceForm = () => {
       formData.contactNumber.length !== 11 ||
       !formData.department ||
       !formData.issueType ||
-      !formData.consent
+      !formData.consent ||
+      !captchaVerified
     ) {
-      alert("Please fill in all required fields and provide consent.");
+      alert("Please fill in all required fields, provide consent, and complete the CAPTCHA.");
       return;
     }
-    alert("Form submitted successfully!");
+    setReviewDialogOpen(true);
+  };
+
+  const handleSubmit = () => {
+    setSnackbarOpen(true);
+    setReviewDialogOpen(false);
     setFormData({
       name: "",
       email: "",
@@ -67,6 +91,11 @@ const TechnicalAssistanceForm = () => {
       description: "",
       consent: false,
     });
+    setCaptchaVerified(false);
+  };
+
+  const handleSnackbarClose = () => {
+    setSnackbarOpen(false);
   };
 
   const handleBack = () => {
@@ -81,17 +110,37 @@ const TechnicalAssistanceForm = () => {
       justifyContent="center"
       minHeight="100vh"
       sx={{
-        backgroundImage: "url('/backgroundlogin.png')", // Add your image URL
+        backgroundImage: "url('/backgroundlogin.png')",
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
         padding: 2,
-        padding: "0"
+        padding: "0",
       }}
     >
       <Box
+        position="absolute"
+        top={16}
+        left={16}
+        display="flex"
+        alignItems="center"
+        gap={1}
+        marginLeft={10}
+      >
+        <img
+          src="/logo.png"
+          alt="Logo"
+          width={90}
+          height={90}
+          style={{ borderRadius: "50%" }}
+        />
+        <Typography variant="h6" color="black" fontFamily="Poppins">
+          Division of Imus City
+        </Typography>
+      </Box>
+      <Box
         sx={{
-          backgroundColor: "white", // Semi-transparent background for the form
+          backgroundColor: "white",
           padding: 4,
           borderRadius: 2,
           boxShadow: 3,
@@ -183,17 +232,23 @@ const TechnicalAssistanceForm = () => {
             </MenuItem>
           ))}
         </TextField>
-        <TextField
-          fullWidth
-          multiline
-          rows={4}
-          label="Issue Description"
-          name="description"
-          value={formData.description}
-          onChange={handleChange}
-          placeholder="Provide a brief description of the issue"
-          sx={{ mt: 2 }}
-        />
+        <Box display="flex" alignItems="center" sx={{ mt: 2 }}>
+          <TextField
+            fullWidth
+            multiline
+            rows={4}
+            label="Issue Description"
+            name="description"
+            value={formData.description}
+            onChange={handleChange}
+            placeholder="Provide a brief description of the issue"
+          />
+          <ReCAPTCHA
+            sitekey="YOUR_RECAPTCHA_SITE_KEY"
+            onChange={handleCaptchaChange}
+            style={{ marginLeft: 16 }}
+          />
+        </Box>
 
         <FormGroup sx={{ mt: 2 }}>
           <FormControlLabel
@@ -211,7 +266,7 @@ const TechnicalAssistanceForm = () => {
         <Button
           variant="contained"
           color="primary"
-          onClick={handleSubmit}
+          onClick={handleReview}
           fullWidth
           sx={{ mt: 2 }}
         >
@@ -219,6 +274,66 @@ const TechnicalAssistanceForm = () => {
         </Button>
       </Box>
 
+      {/* Review Dialog */}
+      <Dialog open={reviewDialogOpen} onClose={() => setReviewDialogOpen(false)}>
+        <DialogTitle>Review Your Information</DialogTitle>
+        <DialogContent>
+          <List>
+            <ListItem>
+              <ListItemText primary="Name" secondary={formData.name} />
+            </ListItem>
+            <ListItem>
+              <ListItemText primary="Email" secondary={formData.email} />
+            </ListItem>
+            <ListItem>
+              <ListItemText
+                primary="Contact Number"
+                secondary={formData.contactNumber}
+              />
+            </ListItem>
+            <ListItem>
+              <ListItemText
+                primary="Department"
+                secondary={formData.department}
+              />
+            </ListItem>
+            <ListItem>
+              <ListItemText primary="Issue Type" secondary={formData.issueType} />
+            </ListItem>
+            <ListItem>
+              <ListItemText
+                primary="Issue Description"
+                secondary={formData.description || "No description provided"}
+              />
+            </ListItem>
+          </List>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setReviewDialogOpen(false)} color="secondary">
+            Edit
+          </Button>
+          <Button onClick={handleSubmit} color="primary" variant="contained">
+            Confirm
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={6000}
+        onClose={handleSnackbarClose}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+      >
+        <Alert
+          onClose={handleSnackbarClose}
+          severity="success"
+          sx={{ width: "100%" }}
+        >
+          ✅ Your form has been successfully submitted!
+        </Alert>
+      </Snackbar>
+
+      {/* Footer */}
       <Box
         component="footer"
         position="absolute"

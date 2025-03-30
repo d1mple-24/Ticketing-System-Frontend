@@ -53,21 +53,24 @@ const Home = () => {
     >
       {/* Logo at the top-left corner */}
       <Box
-        sx={{
-          position: "absolute",
-          top: 20,
-          left: 20,
-          zIndex: 3,
-          marginLeft: 20, // Adjust margin as needed
-        }}
+        position="absolute"
+        top={16}
+        left={16}
+        display="flex"
+        alignItems="center"
+        gap={1}
+        marginLeft={10}
       >
         <img
-          src="/logo.png" // Replace with your logo file path
+          src="/logo.png"
           alt="Logo"
-          width={90} // Adjust width as needed
-          height={90} // Adjust height as needed
-          style={{ borderRadius: "10%" }} // Optional styling
+          width={90}
+          height={90}
+          style={{ borderRadius: "50%" }}
         />
+        <Typography variant="h6" color="black" fontFamily="Poppins">
+          Division of Imus City
+        </Typography>
       </Box>
 
       <Box
@@ -101,8 +104,8 @@ const Home = () => {
           position: "relative",
           zIndex: 1,
           textAlign: "center",
-          maxWidth: 1500,
-          minHeight: 300,
+          maxWidth: 1300,
+          minHeight: 250,
         }}
       >
         <Typography
@@ -113,7 +116,7 @@ const Home = () => {
           fontFamily="Poppins"
           marginTop={2.5}
         >
-          Division Office of Imus City Help Desk
+          
         </Typography>
 
         {/* Box layout for cards */}
@@ -121,7 +124,7 @@ const Home = () => {
           {/* Troubleshooting Card */}
           <Box
             sx={{
-              height: 150,
+              height: 175,
               width: 270,
               padding: 2,
               boxShadow: 5,
@@ -164,7 +167,7 @@ const Home = () => {
           {/* Upload Documents Card */}
           <Box
             sx={{
-              height: 150,
+              height: 175,
               width: 270,
               padding: 2,
               boxShadow: 5,
@@ -207,7 +210,7 @@ const Home = () => {
           {/* Technical Assistance Card */}
           <Box
             sx={{
-              height: 150,
+              height: 175,
               width: 270,
               padding: 2,
               boxShadow: 5,
@@ -250,7 +253,7 @@ const Home = () => {
           {/* Account Management Card */}
           <Box
             sx={{
-              height: 150,
+              height: 175,
               width: 270,
               padding: 2,
               boxShadow: 5,

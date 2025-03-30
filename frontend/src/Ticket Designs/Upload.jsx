@@ -77,9 +77,31 @@ const Upload = () => {
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
         backgroundColor: "rgba(255, 255, 255, 0.2)",
-        padding:"0"
+        padding: "0",
       }}
     >
+      {/* Logo in the Top-Left Corner */}
+      <Box
+        position="absolute"
+        top={16}
+        left={16}
+        display="flex"
+        alignItems="center"
+        gap={1}
+        marginLeft={10}
+      >
+        <img
+          src="/logo.png"
+          alt="Logo"
+          width={90}
+          height={90}
+          style={{ borderRadius: "50%" }}
+        />
+        <Typography variant="h6" color="black" fontFamily="Poppins">
+          Division of Imus City
+        </Typography>
+      </Box>
+
       <Box
         sx={{
           backgroundColor: "white",
@@ -93,7 +115,12 @@ const Upload = () => {
         <Typography variant="h4" fontFamily="Poppins" gutterBottom>
           Upload Documents
         </Typography>
-        <Typography variant="body1" color="text.secondary" fontFamily="Poppins" mb={2}>
+        <Typography
+          variant="body1"
+          color="text.secondary"
+          fontFamily="Poppins"
+          mb={2}
+        >
           Fill out the details, select files, and provide a brief description if needed.
         </Typography>
 
@@ -163,7 +190,13 @@ const Upload = () => {
           fullWidth
           sx={{ mt: 2 }}
         />
-        <Button variant="contained" color="primary" onClick={handleSubmit} fullWidth sx={{ mt: 2 }}>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleSubmit}
+          fullWidth
+          sx={{ mt: 2 }}
+        >
           Upload Files
         </Button>
         {selectedFiles.length > 0 && (
@@ -273,7 +306,6 @@ const Upload = () => {
         </Typography>
       </Box>
     </Box>
-    
   );
 };
 

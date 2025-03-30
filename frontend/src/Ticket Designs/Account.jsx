@@ -52,6 +52,27 @@ const AccountManagement = () => {
         backgroundPosition: "center",
       }}
     >
+      <Box
+        position="absolute"
+        top={16}
+        left={16}
+        display="flex"
+        alignItems="center"
+        gap={1}
+        marginLeft={10}
+      >
+        <img
+          src="/logo.png"
+          alt="Logo"
+          width={90}
+          height={90}
+          style={{ borderRadius: "50%" }}
+        />
+        <Typography variant="h6" color="black" fontFamily="Poppins">
+          Division of Imus City
+        </Typography>
+      </Box>
+      
       <Paper
         elevation={4}
         sx={{
