@@ -64,13 +64,14 @@ const Trouble = () => {
     sx={{
         minHeight: "100vh",
         backgroundColor: "#f5f7fa",
-        backgroundImage: "linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url(/backgroundlogin.png)",
+        backgroundImage:  "url(/backgroundlogin.png)",
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        
     }}
 >
 
@@ -342,29 +343,47 @@ const Trouble = () => {
 
             {/* Footer */}
             <Box
-                sx={{
-                    position: "absolute",
-                    bottom: 16,
-                    right: 16,
-                    textAlign: "right",
-                }}
-            >
-                <Box sx={{ display: "flex", gap: 2, justifyContent: "flex-end" }} marginRight={12} >
-                    <img src="/lugo1.png" alt="lugo1" width={90} height={90} style={{ borderRadius: "50%" }} />
-                    <img src="/lugo2.png" alt="lugo2" width={90} height={90} style={{ borderRadius: "50%" }} />
-                </Box>
-                <Typography
-                    variant="body2"
-                    color="text.secondary"
-                    fontStyle="normal"
-                    fontWeight={600}
-                    fontFamily="Poppins"
-                    sx={{ marginTop: 1 }}
-                >
-                    &copy; 2025 Division Office of Imus City. All rights reserved.
-                </Typography>
-            </Box>
+        component="footer"
+        position="absolute"
+        bottom={16}
+        right={16}
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+        sx={{
+          backgroundColor: "rgba(0, 0, 0, 0.7)",
+          padding: 2,
+          borderRadius: 2,
+        }}
+      >
+        <Box display="flex" gap={2} mb={1}>
+          <img
+            src="/lugo1.png"
+            alt="lugo1"
+            width={90}
+            height={90}
+            style={{ borderRadius: "50%" }}
+          />
+          <img
+            src="/lugo2.png"
+            alt="lugo2"
+            width={90}
+            height={90}
+            style={{ borderRadius: "50%" }}
+          />
         </Box>
+        <Typography
+          variant="body2"
+          color="white"
+          fontStyle="normal"
+          fontWeight={600}
+          fontFamily="Poppins"
+          textAlign="center"
+        >
+          &copy; 2025 Division Office of Imus City. All rights reserved.
+        </Typography>
+      </Box>
+    </Box>
     );
 };
 

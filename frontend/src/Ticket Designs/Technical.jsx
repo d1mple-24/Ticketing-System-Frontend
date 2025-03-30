@@ -81,26 +81,17 @@ const TechnicalAssistanceForm = () => {
       justifyContent="center"
       minHeight="100vh"
       sx={{
-        background: "linear-gradient(90deg, rgba(0,255,255,1) 0%, rgba(0,128,255,1) 50%, rgba(128,0,255,1) 100%)",
-        animation: "gradientAnimation 10s ease infinite",
-        "@keyframes gradientAnimation": {
-          "0%": {
-            backgroundPosition: "0% 50%",
-          },
-          "50%": {
-            backgroundPosition: "100% 50%",
-          },
-          "100%": {
-            backgroundPosition: "0% 50%",
-          },
-        },
-        backgroundSize: "200% 200%",
+        backgroundImage: "url('/backgroundlogin.png')", // Add your image URL
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center",
         padding: 2,
+        padding: "0"
       }}
     >
       <Box
         sx={{
-          backgroundColor: "white",
+          backgroundColor: "white", // Semi-transparent background for the form
           padding: 4,
           borderRadius: 2,
           boxShadow: 3,
@@ -226,6 +217,48 @@ const TechnicalAssistanceForm = () => {
         >
           Submit
         </Button>
+      </Box>
+
+      <Box
+        component="footer"
+        position="absolute"
+        bottom={16}
+        right={16}
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+        sx={{
+          backgroundColor: "rgba(0, 0, 0, 0.7)",
+          padding: 2,
+          borderRadius: 2,
+        }}
+      >
+        <Box display="flex" gap={2} mb={1}>
+          <img
+            src="/lugo1.png"
+            alt="lugo1"
+            width={90}
+            height={90}
+            style={{ borderRadius: "50%" }}
+          />
+          <img
+            src="/lugo2.png"
+            alt="lugo2"
+            width={90}
+            height={90}
+            style={{ borderRadius: "50%" }}
+          />
+        </Box>
+        <Typography
+          variant="body2"
+          color="white"
+          fontStyle="normal"
+          fontWeight={600}
+          fontFamily="Poppins"
+          textAlign="center"
+        >
+          &copy; 2025 Division Office of Imus City. All rights reserved.
+        </Typography>
       </Box>
     </Box>
   );

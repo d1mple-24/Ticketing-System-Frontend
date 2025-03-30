@@ -5,7 +5,6 @@ import {
   Button,
   Typography,
   Paper,
-  Grid,
   IconButton,
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -42,14 +41,26 @@ const AccountManagement = () => {
   return (
     <Box
       display="flex"
+      flexDirection="column"
       justifyContent="center"
       alignItems="center"
       minHeight="100vh"
-      sx={{ backgroundColor: "#f5f5f5", padding: 4 }}
+      position="relative"
+      sx={{
+        backgroundImage: "url('/backgroundlogin.png')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
     >
       <Paper
         elevation={4}
-        sx={{ padding: 4, maxWidth: 500, width: "100%", borderRadius: 2, position: "relative" }}
+        sx={{
+          padding: 4,
+          maxWidth: 500,
+          width: "100%",
+          borderRadius: 2,
+          position: "relative",
+        }}
       >
         <IconButton
           onClick={handleBackToHome}
@@ -68,72 +79,100 @@ const AccountManagement = () => {
         </Typography>
 
         <form onSubmit={handleSubmit}>
-          <Grid container spacing={3}>
-            <Grid item xs={12}>
-              <TextField
-                fullWidth
-                label="Username"
-                name="username"
-                value={formData.username}
-                onChange={handleChange}
-                variant="outlined"
-              />
-            </Grid>
-
-            <Grid item xs={12}>
-              <TextField
-                fullWidth
-                label="Email"
-                name="email"
-                type="email"
-                value={formData.email}
-                onChange={handleChange}
-                variant="outlined"
-              />
-            </Grid>
-
-            <Grid item xs={12}>
-              <TextField
-                fullWidth
-                label="Password"
-                name="password"
-                type="password"
-                value={formData.password}
-                onChange={handleChange}
-                variant="outlined"
-              />
-            </Grid>
-
-            <Grid item xs={12}>
-              <TextField
-                fullWidth
-                label="Confirm Password"
-                name="confirmPassword"
-                type="password"
-                value={formData.confirmPassword}
-                onChange={handleChange}
-                variant="outlined"
-              />
-            </Grid>
-
-            <Grid item xs={12}>
-              <Button
-                type="submit"
-                variant="contained"
-                color="primary"
-                fullWidth
-                sx={{
-                  textTransform: "none",
-                  fontWeight: "bold",
-                  fontFamily: "Poppins",
-                }}
-              >
-                Update Account
-              </Button>
-            </Grid>
-          </Grid>
+          <Box display="flex" flexDirection="column" gap={3}>
+            <TextField
+              fullWidth
+              label="Username"
+              name="username"
+              value={formData.username}
+              onChange={handleChange}
+              variant="outlined"
+            />
+            <TextField
+              fullWidth
+              label="Email"
+              name="email"
+              type="email"
+              value={formData.email}
+              onChange={handleChange}
+              variant="outlined"
+            />
+            <TextField
+              fullWidth
+              label="Password"
+              name="password"
+              type="password"
+              value={formData.password}
+              onChange={handleChange}
+              variant="outlined"
+            />
+            <TextField
+              fullWidth
+              label="Confirm Password"
+              name="confirmPassword"
+              type="password"
+              value={formData.confirmPassword}
+              onChange={handleChange}
+              variant="outlined"
+            />
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              fullWidth
+              sx={{
+                textTransform: "none",
+                fontWeight: "bold",
+                fontFamily: "Poppins",
+              }}
+            >
+              Update Account
+            </Button>
+          </Box>
         </form>
       </Paper>
+
+      <Box
+        component="footer"
+        position="absolute"
+        bottom={16}
+        right={16}
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+        sx={{
+          backgroundColor: "rgba(0, 0, 0, 0.7)",
+          padding: 2,
+          borderRadius: 2,
+        }}
+      >
+        <Box display="flex" gap={2} mb={1}>
+          <img
+            src="/lugo1.png"
+            alt="lugo1"
+            width={90}
+            height={90}
+            style={{ borderRadius: "50%" }}
+          />
+          <img
+            src="/lugo2.png"
+            alt="lugo2"
+            width={90}
+            height={90}
+            style={{ borderRadius: "50%" }}
+          />
+        </Box>
+        <Typography
+          variant="body2"
+          color="white"
+          fontStyle="normal"
+          fontWeight={600}
+          fontFamily="Poppins"
+          textAlign="center"
+        >
+          &copy; 2025 Division Office of Imus City. All rights reserved.
+        </Typography>
+      </Box>
     </Box>
   );
 };

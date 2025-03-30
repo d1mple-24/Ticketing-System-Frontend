@@ -46,7 +46,7 @@ const Home = () => {
           left: 0,
           width: "100%",
           height: "100%",
-          backgroundColor: "rgba(255, 255, 255, 0.6)",
+          
           zIndex: 0,
         },
       }}
@@ -293,18 +293,20 @@ const Home = () => {
       </Box>
 
       <Box
+        component="footer"
+        position="absolute"
+        bottom={16}
+        right={16}
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
         sx={{
-          position: "absolute",
-          bottom: 30,
-          right: 20,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: 2,
-          zIndex: 2,
+          backgroundColor: "rgba(0, 0, 0, 0.7)",
+          padding: 2,
+          borderRadius: 2,
         }}
       >
-        <Box sx={{ display: "flex", gap: 2 }}>
+        <Box display="flex" gap={2} mb={1}>
           <img
             src="/lugo1.png"
             alt="lugo1"
@@ -322,11 +324,11 @@ const Home = () => {
         </Box>
         <Typography
           variant="body2"
-          color="text.secondary"
+          color="white"
           fontStyle="normal"
           fontWeight={600}
           fontFamily="Poppins"
-          sx={{ marginTop: 1 }}
+          textAlign="center"
         >
           &copy; 2025 Division Office of Imus City. All rights reserved.
         </Typography>

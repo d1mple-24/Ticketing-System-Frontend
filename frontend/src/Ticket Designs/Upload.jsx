@@ -232,33 +232,48 @@ const Upload = () => {
 
       {/* Footer Section */}
       <Box
+        component="footer"
+        position="absolute"
+        bottom={16}
+        right={16}
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
         sx={{
-          position: "absolute",
-          bottom: 30,
-          right: 20,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: 2,
-          zIndex: 2,
+          backgroundColor: "rgba(0, 0, 0, 0.7)",
+          padding: 2,
+          borderRadius: 2,
         }}
       >
-        <Box sx={{ display: "flex", gap: 2 }}>
-          <img src="/lugo1.png" alt="lugo1" width={90} height={90} style={{ borderRadius: "50%" }} />
-          <img src="/lugo2.png" alt="lugo2" width={90} height={90} style={{ borderRadius: "50%" }} />
+        <Box display="flex" gap={2} mb={1}>
+          <img
+            src="/lugo1.png"
+            alt="lugo1"
+            width={90}
+            height={90}
+            style={{ borderRadius: "50%" }}
+          />
+          <img
+            src="/lugo2.png"
+            alt="lugo2"
+            width={90}
+            height={90}
+            style={{ borderRadius: "50%" }}
+          />
         </Box>
         <Typography
           variant="body2"
-          color="text.secondary"
+          color="white"
           fontStyle="normal"
           fontWeight={600}
           fontFamily="Poppins"
-          sx={{ marginTop: 1 }}
+          textAlign="center"
         >
           &copy; 2025 Division Office of Imus City. All rights reserved.
         </Typography>
       </Box>
     </Box>
+    
   );
 };
 
