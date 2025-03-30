@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Card, CardContent, Typography, Grid } from "@mui/material";
+import { Box, Card, CardContent, Typography } from "@mui/material";
 
 const Home = () => {
   const [isProfileClicked, setIsProfileClicked] = useState(false);
@@ -9,6 +9,12 @@ const Home = () => {
 
     if (title === "Troubleshooting") {
       window.location.href = "/troubleshooting"; // Redirect to Trouble.jsx
+    } else if (title === "Upload Documents") {
+      window.location.href = "/upload"; // Redirect to Upload.jsx
+    } else if (title === "Technical Assistance") {
+      window.location.href = "/technical"; // Redirect to Technical.jsx
+    } else if (title === "Account Management") {
+      window.location.href = "/account"; // Redirect to Account.jsx
     }
   };
 
@@ -27,6 +33,7 @@ const Home = () => {
       minHeight="100vh"
       padding={6}
       sx={{
+        padding: "0",
         position: "relative",
         backgroundImage: 'url("/backgroundlogin.png")',
         backgroundSize: "cover",
@@ -44,6 +51,25 @@ const Home = () => {
         },
       }}
     >
+      {/* Logo at the top-left corner */}
+      <Box
+        sx={{
+          position: "absolute",
+          top: 20,
+          left: 20,
+          zIndex: 3,
+          marginLeft: 20, // Adjust margin as needed
+        }}
+      >
+        <img
+          src="/logo.png" // Replace with your logo file path
+          alt="Logo"
+          width={90} // Adjust width as needed
+          height={90} // Adjust height as needed
+          style={{ borderRadius: "10%" }} // Optional styling
+        />
+      </Box>
+
       <Box
         sx={{
           position: "absolute",
@@ -68,17 +94,15 @@ const Home = () => {
       <Box
         sx={{
           backgroundColor: "white",
-          padding: 4,
+          padding: 3,
           borderRadius: 2,
           boxShadow: 10,
           border: "2px solid black",
-          mt: 3,
           position: "relative",
           zIndex: 1,
           textAlign: "center",
-          maxWidth: 1000, // Updated max width
-          minHeight: 300, // Set a minimum height
-          width: "100%", // Full width for smaller screens
+          maxWidth: 1500,
+          minHeight: 300,
         }}
       >
         <Typography
@@ -92,163 +116,220 @@ const Home = () => {
           Division Office of Imus City Help Desk
         </Typography>
 
-        {/* Grid layout for cards */}
-        <Grid
-          container
-          spacing={3} // Add gap between cards
-          justifyContent="center"
-          direction="row" // Set the direction to row for side-by-side
-        >
-          {/* First Row: Troubleshooting, Upload Documents, Technical Assistance */}
-          <Grid item xs={12} sm={4} md={3}>
-            <Card
-              sx={{
-                height: 150, // Reduced card height
-                width: 270,
-                padding: 2,
-                boxShadow: 5,
-                border: "1px solid black",
-                cursor: "pointer",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-                margin: "0 auto", // Centering cards
-              }}
-              onClick={() => handleCardClick("Troubleshooting")}
-            >
-              <CardContent sx={{ textAlign: "center" }}>
-                <img
-                  src="/trouble.png"
-                  alt="Troubleshooting"
-                  width={40}
-                  height={40}
-                  style={{ marginBottom: 8 }}
-                />
-                <Typography variant="h6" fontWeight="bold   " gutterBottom fontFamily="Poppins">
-                  Troubleshooting
-                </Typography>
-                <Typography variant="body2" color="text.secondary" fontStyle="italic" fontFamily="Poppins">
-                  Submit a ticket to resolve an issue.
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
+        {/* Box layout for cards */}
+        <Box display="flex" flexWrap="wrap" justifyContent="center" gap={3}>
+          {/* Troubleshooting Card */}
+          <Box
+            sx={{
+              height: 150,
+              width: 270,
+              padding: 2,
+              boxShadow: 5,
+              border: "1px solid black",
+              cursor: "pointer",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+            onClick={() => handleCardClick("Troubleshooting")}
+          >
+            <CardContent sx={{ textAlign: "center" }}>
+              <img
+                src="/trouble.png"
+                alt="Troubleshooting"
+                width={40}
+                height={40}
+                style={{ marginBottom: 8 }}
+              />
+              <Typography
+                variant="h6"
+                fontWeight="bold"
+                gutterBottom
+                fontFamily="Poppins"
+              >
+                Troubleshooting
+              </Typography>
+              <Typography
+                variant="body2"
+                color="text.secondary"
+                fontStyle="italic"
+                fontFamily="Poppins"
+              >
+                Submit a ticket to resolve an issue.
+              </Typography>
+            </CardContent>
+          </Box>
 
-          <Grid item xs={12} sm={4} md={3}>
-            <Card
-              sx={{
-                height: 150, // Reduced card height
-                width: 270,
-                padding: 2,
-                boxShadow: 5,
-                border: "1px solid black",
-                cursor: "pointer",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-              onClick={() => handleCardClick("Upload Documents")}
-            >
-              <CardContent sx={{ textAlign: "center" }}>
-                <img
-                  src="/uplud.png"
-                  alt="Upload Documents"
-                  width={40}
-                  height={40}
-                  style={{ marginBottom: 8 }}
-                />
-                <Typography variant="h6" fontWeight="bold" gutterBottom fontFamily="Poppins">
-                  Upload Documents
-                </Typography>
-                <Typography variant="body2" color="text.secondary" fontStyle="italic" fontFamily="Poppins">
-                  Upload documents to your account.
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
+          {/* Upload Documents Card */}
+          <Box
+            sx={{
+              height: 150,
+              width: 270,
+              padding: 2,
+              boxShadow: 5,
+              border: "1px solid black",
+              cursor: "pointer",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+            onClick={() => handleCardClick("Upload Documents")}
+          >
+            <CardContent sx={{ textAlign: "center" }}>
+              <img
+                src="/uplud.png"
+                alt="Upload Documents"
+                width={40}
+                height={40}
+                style={{ marginBottom: 8 }}
+              />
+              <Typography
+                variant="h6"
+                fontWeight="bold"
+                gutterBottom
+                fontFamily="Poppins"
+              >
+                Upload Documents
+              </Typography>
+              <Typography
+                variant="body2"
+                color="text.secondary"
+                fontStyle="italic"
+                fontFamily="Poppins"
+              >
+                Upload documents to your account.
+              </Typography>
+            </CardContent>
+          </Box>
 
-          <Grid item xs={12} sm={4} md={3}>
-            <Card
-              sx={{
-                height: 150, // Reduced card height
-                width: 270,
-                padding: 2,
-                boxShadow: 5,
-                border: "1px solid black",
-                cursor: "pointer",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-              onClick={() => handleCardClick("Technical Assistance")}
-            >
-              <CardContent sx={{ textAlign: "center" }}>
-                <img
-                  src="/tech.png"
-                  alt="Technical Assistance"
-                  width={40}
-                  height={40}
-                  style={{ marginBottom: 8 }}
-                />
-                <Typography variant="h6" fontWeight="bold" gutterBottom fontFamily="Poppins">
-                  Technical Assistance
-                </Typography>
-                <Typography variant="body2" color="text.secondary" fontStyle="italic" fontFamily="Poppins">
-                  Get help with technical problems.
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
+          {/* Technical Assistance Card */}
+          <Box
+            sx={{
+              height: 150,
+              width: 270,
+              padding: 2,
+              boxShadow: 5,
+              border: "1px solid black",
+              cursor: "pointer",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+            onClick={() => handleCardClick("Technical Assistance")}
+          >
+            <CardContent sx={{ textAlign: "center" }}>
+              <img
+                src="/tech.png"
+                alt="Technical Assistance"
+                width={40}
+                height={40}
+                style={{ marginBottom: 8 }}
+              />
+              <Typography
+                variant="h6"
+                fontWeight="bold"
+                gutterBottom
+                fontFamily="Poppins"
+              >
+                Technical Assistance
+              </Typography>
+              <Typography
+                variant="body2"
+                color="text.secondary"
+                fontStyle="italic"
+                fontFamily="Poppins"
+              >
+                Get help with technical problems.
+              </Typography>
+            </CardContent>
+          </Box>
 
-          {/* Second Row: Account Management */}
-          <Grid item xs={12} sm={4} md={3}>
-            <Card
-              sx={{
-                height: 150, // Reduced card height
-                width: 270,
-                padding: 2,
-                boxShadow: 5,
-                border: "1px solid black",
-                cursor: "pointer",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-              onClick={() => handleCardClick("Account Management")}
-            >
-              <CardContent sx={{ textAlign: "center" }}>
-                <img
-                  src="/account.png"
-                  alt="Account Management"
-                  width={40}
-                  height={40}
-                  style={{ marginBottom: 8 }}
-                />
-                <Typography variant="h6" fontWeight="bold" gutterBottom fontFamily="Poppins">
-                  Account Management
-                </Typography>
-                <Typography variant="body2" color="text.secondary" fontStyle="italic" fontFamily="Poppins">
-                  Manage your account settings and preferences.
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-        </Grid>
+          {/* Account Management Card */}
+          <Box
+            sx={{
+              height: 150,
+              width: 270,
+              padding: 2,
+              boxShadow: 5,
+              border: "1px solid black",
+              cursor: "pointer",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+            onClick={() => handleCardClick("Account Management")}
+          >
+            <CardContent sx={{ textAlign: "center" }}>
+              <img
+                src="/account.png"
+                alt="Account Management"
+                width={40}
+                height={40}
+                style={{ marginBottom: 8 }}
+              />
+              <Typography
+                variant="h6"
+                fontWeight="bold"
+                gutterBottom
+                fontFamily="Poppins"
+              >
+                Account Management
+              </Typography>
+              <Typography
+                variant="body2"
+                color="text.secondary"
+                fontStyle="italic"
+                fontFamily="Poppins"
+              >
+                Manage your account settings and preferences.
+              </Typography>
+            </CardContent>
+          </Box>
+        </Box>
       </Box>
 
-      <Box component="footer" textAlign="center" mt={5} py={2} width="100%" sx={{ position: "relative", zIndex: 1 }}>
-        <Typography variant="body2" color="text.secondary" fontStyle="italic" fontWeight={600} fontFamily="Poppins">
+      <Box
+        sx={{
+          position: "absolute",
+          bottom: 30,
+          right: 20,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: 2,
+          zIndex: 2,
+        }}
+      >
+        <Box sx={{ display: "flex", gap: 2 }}>
+          <img
+            src="/lugo1.png"
+            alt="lugo1"
+            width={90}
+            height={90}
+            style={{ borderRadius: "50%" }}
+          />
+          <img
+            src="/lugo2.png"
+            alt="lugo2"
+            width={90}
+            height={90}
+            style={{ borderRadius: "50%" }}
+          />
+        </Box>
+        <Typography
+          variant="body2"
+          color="text.secondary"
+          fontStyle="normal"
+          fontWeight={600}
+          fontFamily="Poppins"
+          sx={{ marginTop: 1 }}
+        >
           &copy; 2025 Division Office of Imus City. All rights reserved.
         </Typography>
-      </Box>
-
-      <Box sx={{ position: "absolute", bottom: 30, right: 20, display: "flex", gap: 2, zIndex: 2 }}>
-        <img src="/lugo1.png" alt="lugo1" width={90} height={90} style={{ borderRadius: "50%" }} />
-        <img src="/lugo2.png" alt="lugo2" width={90} height={90} style={{ borderRadius: "50%" }} />
       </Box>
     </Box>
   );
