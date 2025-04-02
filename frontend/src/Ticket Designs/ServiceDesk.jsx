@@ -182,7 +182,7 @@ const ServiceDesk = () => {
       </div>
 
       {/* Footer */}
-      <div className="mt-auto d-flex flex-column align-items-center p-1 p-sm-2 p-md-3 rounded-top-3"
+      <div className="d-flex flex-column align-items-center p-1 p-sm-2 p-md-3 rounded-top-3 mt-4"
         style={{
           backgroundColor: "rgba(0, 0, 0, 0.8)",
           width: isMobile ? "80%" : "auto",

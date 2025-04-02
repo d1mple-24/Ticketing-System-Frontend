@@ -79,7 +79,7 @@ const Home = () => {
 
         {/* Service Desk Button */}
         <div 
-          className="position-absolute d-flex align-items-center gap-2 p-2 p-sm-3 rounded-3"
+          className="position-absolute d-flex align-items-center gap-2 p-1 p-sm-2 rounded-3"
           style={{
             top: isMobile ? "60px" : isTablet ? "70px" : "80px",
             left: "50%",
@@ -101,15 +101,15 @@ const Home = () => {
           <img
             src="/help.png"
             alt="Service Desk"
-            width={isMobile ? 25 : isTablet ? 30 : 35}
-            height={isMobile ? 25 : isTablet ? 30 : 35}
+            width={isMobile ? 20 : isTablet ? 25 : 30}
+            height={isMobile ? 20 : isTablet ? 25 : 30}
             className="rounded-circle"
           />
           <Typography
             variant="body1"
             style={{
               fontFamily: "Poppins",
-              fontSize: isMobile ? "0.8rem" : isTablet ? "0.9rem" : "1rem",
+              fontSize: isMobile ? "0.7rem" : isTablet ? "0.8rem" : "0.9rem",
               fontWeight: 500,
               color: theme.palette.primary.main,
               margin: 0,
@@ -364,7 +364,7 @@ const Home = () => {
       </div>
 
       {/* Footer */}
-      <div className="mt-auto d-flex flex-column align-items-center p-1 p-sm-2 p-md-3 rounded-top-3"
+      <div className="d-flex flex-column align-items-center p-1 p-sm-2 p-md-3 rounded-top-3 mt-4"
         style={{
           backgroundColor: "rgba(0, 0, 0, 0.8)",
           width: isMobile ? "80%" : "auto",
