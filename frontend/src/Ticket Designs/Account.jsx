@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import {
     Box, Typography, Button, TextField,
+    Dialog, DialogTitle, DialogContent, DialogActions,
     useTheme, useMediaQuery, Container, Paper, IconButton,
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { useNavigate } from "react-router-dom";
+import ReCAPTCHA from "react-google-recaptcha";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const AccountManagement = () => {
@@ -20,6 +23,10 @@ const AccountManagement = () => {
         confirmPassword: "",
     });
 
+    const [isSuccessOpen, setIsSuccessOpen] = useState(false);
+    const [captchaVerified, setCaptchaVerified] = useState(false);
+    const [captchaError, setCaptchaError] = useState("");
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
@@ -33,8 +40,29 @@ const AccountManagement = () => {
             return;
         }
 
+        if (!captchaVerified) {
+            setCaptchaError("Please complete the CAPTCHA verification");
+            return;
+        }
+
         console.log("Form submitted:", formData);
-        alert("Account updated successfully!");
+        setIsSuccessOpen(true);
+    };
+
+    const handleCaptchaChange = (value) => {
+        if (value) {
+            setCaptchaVerified(true);
+            setCaptchaError("");
+        } else {
+            setCaptchaVerified(false);
+            setCaptchaError("Please complete the CAPTCHA verification");
+        }
+    };
+
+    const handleCloseSuccessDialog = () => {
+        setIsSuccessOpen(false);
+        setCaptchaVerified(false);
+        navigate("/");
     };
 
     const goBackToHome = () => {
@@ -150,7 +178,7 @@ const AccountManagement = () => {
                                         name="username"
                                         value={formData.username}
                                         onChange={handleChange}
-                                        variant="outlined"
+                                        required
                                         margin="normal"
                                     />
                                 </div>
@@ -162,7 +190,7 @@ const AccountManagement = () => {
                                         type="email"
                                         value={formData.email}
                                         onChange={handleChange}
-                                        variant="outlined"
+                                        required
                                         margin="normal"
                                     />
                                 </div>
@@ -174,7 +202,7 @@ const AccountManagement = () => {
                                         type="password"
                                         value={formData.password}
                                         onChange={handleChange}
-                                        variant="outlined"
+                                        required
                                         margin="normal"
                                     />
                                 </div>
@@ -186,9 +214,37 @@ const AccountManagement = () => {
                                         type="password"
                                         value={formData.confirmPassword}
                                         onChange={handleChange}
-                                        variant="outlined"
+                                        required
                                         margin="normal"
                                     />
+                                </div>
+                                <div className="col-12">
+                                    <Box 
+                                        display="flex" 
+                                        flexDirection="column" 
+                                        alignItems="center" 
+                                        sx={{ 
+                                            mt: 2,
+                                            height: '100%',
+                                            display: 'flex',
+                                            justifyContent: 'center'
+                                        }}
+                                    >
+                                        <ReCAPTCHA
+                                            sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
+                                            onChange={handleCaptchaChange}
+                                            style={{ 
+                                                margin: "16px 0",
+                                                transform: 'scale(0.85)',
+                                                transformOrigin: 'center'
+                                            }}
+                                        />
+                                        {captchaError && (
+                                            <Typography color="error" variant="body2" sx={{ mt: 1 }}>
+                                                {captchaError}
+                                            </Typography>
+                                        )}
+                                    </Box>
                                 </div>
                             </div>
 
@@ -275,6 +331,63 @@ const AccountManagement = () => {
                     </Typography>
                 </div>
             </div>
+
+            {/* Success Dialog */}
+            <Dialog
+                open={isSuccessOpen}
+                onClose={handleCloseSuccessDialog}
+                maxWidth="sm"
+                fullWidth
+                PaperProps={{
+                    style: {
+                        borderRadius: "16px",
+                        backgroundColor: "rgba(255, 255, 255, 0.95)",
+                        backdropFilter: "blur(10px)",
+                        width: isMobile ? "95%" : "80%",
+                        margin: "auto",
+                    }
+                }}
+            >
+                <DialogTitle className="text-center" style={{ fontFamily: "Poppins", fontWeight: "bold" }}>
+                    <CheckCircleIcon 
+                        color="success" 
+                        sx={{ 
+                            fontSize: 40,
+                            marginBottom: 1
+                        }} 
+                    />
+                    <Typography variant="h5" style={{ color: theme.palette.success.main }}>
+                        Account Updated Successfully!
+                    </Typography>
+                </DialogTitle>
+                <DialogContent dividers>
+                    <div className="d-grid gap-3 text-center">
+                        <Typography variant="body1" style={{ fontFamily: "Poppins" }}>
+                            Your account information has been successfully updated.
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                            You will receive a confirmation email at {formData.email}
+                        </Typography>
+                    </div>
+                </DialogContent>
+                <DialogActions className="p-3 d-flex justify-content-center">
+                    <Button
+                        onClick={handleCloseSuccessDialog}
+                        color="primary"
+                        variant="contained"
+                        className="px-4"
+                        style={{
+                            borderRadius: "8px",
+                            padding: "8px 24px",
+                            fontSize: isMobile ? "0.8rem" : "0.9rem",
+                            textTransform: "none",
+                            fontWeight: 600,
+                        }}
+                    >
+                        Return to Home
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </div>
     );
 };

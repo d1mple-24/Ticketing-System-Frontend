@@ -5,6 +5,7 @@ import {
     useTheme, useMediaQuery, Container, Paper, IconButton,
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { useNavigate } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -21,6 +22,7 @@ const Upload = () => {
     const [priority, setPriority] = useState("");
     const [subject, setSubject] = useState("");
     const [openConfirmation, setOpenConfirmation] = useState(false);
+    const [isSuccessOpen, setIsSuccessOpen] = useState(false);
 
     const locations = ["SDO - Imus City", "Schools - Imus City"];
     const priorityLevels = ["Low", "Medium", "High", "Critical"];
@@ -47,7 +49,7 @@ const Upload = () => {
 
     const handleConfirmUpload = () => {
         setOpenConfirmation(false);
-        alert("Files uploaded successfully!");
+        setIsSuccessOpen(true);
         setSelectedFiles([]);
         setDescription("");
         setEmail("");
@@ -58,6 +60,11 @@ const Upload = () => {
 
     const handleCancelUpload = () => {
         setOpenConfirmation(false);
+    };
+
+    const handleCloseSuccessDialog = () => {
+        setIsSuccessOpen(false);
+        navigate("/");
     };
 
     const goBackToHome = () => {
@@ -427,6 +434,66 @@ const Upload = () => {
                         }}
                     >
                         Confirm
+                    </Button>
+                </DialogActions>
+            </Dialog>
+
+            {/* Success Dialog */}
+            <Dialog
+                open={isSuccessOpen}
+                onClose={handleCloseSuccessDialog}
+                maxWidth="sm"
+                fullWidth
+                PaperProps={{
+                    style: {
+                        borderRadius: "16px",
+                        backgroundColor: "rgba(255, 255, 255, 0.95)",
+                        backdropFilter: "blur(10px)",
+                        width: isMobile ? "95%" : "80%",
+                        margin: "auto",
+                    }
+                }}
+            >
+                <DialogTitle className="text-center" style={{ fontFamily: "Poppins", fontWeight: "bold" }}>
+                    <CheckCircleIcon 
+                        color="success" 
+                        sx={{ 
+                            fontSize: 40,
+                            marginBottom: 1
+                        }} 
+                    />
+                    <Typography variant="h5" style={{ color: theme.palette.success.main }}>
+                        Files Uploaded Successfully!
+                    </Typography>
+                </DialogTitle>
+                <DialogContent dividers>
+                    <div className="d-grid gap-3 text-center">
+                        <Typography variant="body1" style={{ fontFamily: "Poppins" }}>
+                            Your files have been successfully uploaded to our system.
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                            You will receive a confirmation email at {email} with the details of your upload.
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                            Our team will review your submission and get back to you soon.
+                        </Typography>
+                    </div>
+                </DialogContent>
+                <DialogActions className="p-3 d-flex justify-content-center">
+                    <Button
+                        onClick={handleCloseSuccessDialog}
+                        color="primary"
+                        variant="contained"
+                        className="px-4"
+                        style={{
+                            borderRadius: "8px",
+                            padding: "8px 24px",
+                            fontSize: isMobile ? "0.8rem" : "0.9rem",
+                            textTransform: "none",
+                            fontWeight: 600,
+                        }}
+                    >
+                        Return to Home
                     </Button>
                 </DialogActions>
             </Dialog>

@@ -26,6 +26,7 @@ import {
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ReCAPTCHA from "react-google-recaptcha";
 import { useNavigate } from "react-router-dom";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const TechnicalAssistanceForm = () => {
@@ -47,6 +48,9 @@ const TechnicalAssistanceForm = () => {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [reviewDialogOpen, setReviewDialogOpen] = useState(false);
   const [captchaVerified, setCaptchaVerified] = useState(false);
+  const [captchaError, setCaptchaError] = useState("");
+  const [uploadedFile, setUploadedFile] = useState(null);
+  const [isSuccessOpen, setIsSuccessOpen] = useState(false);
 
   const departments = ["IT", "HR", "Finance", "Admin"];
   const issueTypes = ["Hardware", "Software", "Network", "Other"];
@@ -67,7 +71,13 @@ const TechnicalAssistanceForm = () => {
   };
 
   const handleCaptchaChange = (value) => {
-    setCaptchaVerified(!!value);
+    if (value) {
+      setCaptchaVerified(true);
+      setCaptchaError("");
+    } else {
+      setCaptchaVerified(false);
+      setCaptchaError("Please complete the CAPTCHA verification");
+    }
   };
 
   const handleReview = () => {
@@ -75,16 +85,12 @@ const TechnicalAssistanceForm = () => {
       alert("Please enter a valid email address.");
       return;
     }
-    if (
-      !formData.name ||
-      !formData.contactNumber ||
-      formData.contactNumber.length !== 11 ||
-      !formData.department ||
-      !formData.issueType ||
-      !formData.consent ||
-      !captchaVerified
-    ) {
-      alert("Please fill in all required fields, provide consent, and complete the CAPTCHA.");
+    if (!formData.name || !formData.contactNumber || !formData.department || 
+      !formData.issueType || !formData.consent || !captchaVerified) {
+      if (!captchaVerified) {
+        setCaptchaError("Please complete the CAPTCHA verification");
+      }
+      alert("Please fill in all required fields and complete the CAPTCHA.");
       return;
     }
     setReviewDialogOpen(true);
@@ -110,6 +116,24 @@ const TechnicalAssistanceForm = () => {
   };
 
   const goBackToHome = () => {
+    navigate("/");
+  };
+
+  const handleFinalSubmit = () => {
+    setReviewDialogOpen(false);
+    setIsSuccessOpen(true);
+    console.log("Form Data:", formData);
+    console.log("Uploaded File:", uploadedFile);
+    setFormData({
+      name: "", email: "", contactNumber: "", department: "", issueType: "",
+      description: "", consent: false,
+    });
+    setCaptchaVerified(false);
+    setUploadedFile(null);
+  };
+
+  const handleCloseSuccessDialog = () => {
+    setIsSuccessOpen(false);
     navigate("/");
   };
 
@@ -291,28 +315,57 @@ const TechnicalAssistanceForm = () => {
                 </TextField>
               </div>
               <div className="col-12">
-                <TextField
-                  fullWidth
-                  multiline
-                  rows={4}
-                  label="Issue Description"
-                  name="description"
-                  value={formData.description}
-                  onChange={handleChange}
-                  required
-                  margin="normal"
-                  placeholder="Provide a brief description of the issue"
-                />
+                <div className="row align-items-start">
+                  <div className="col-12 col-md-8">
+                    <TextField
+                      fullWidth
+                      label="Specific Problem"
+                      name="description"
+                      multiline
+                      rows={4}
+                      value={formData.description}
+                      onChange={handleChange}
+                      required
+                      margin="normal"
+                      sx={{ 
+                        '& .MuiOutlinedInput-root': {
+                          height: '100%',
+                          minHeight: '120px'
+                        }
+                      }}
+                    />
+                  </div>
+                  <div className="col-12 col-md-4">
+                    <Box 
+                      display="flex" 
+                      flexDirection="column" 
+                      alignItems="center" 
+                      sx={{ 
+                        mt: 2,
+                        height: '100%',
+                        display: 'flex',
+                        justifyContent: 'center'
+                      }}
+                    >
+                      <ReCAPTCHA
+                        sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
+                        onChange={handleCaptchaChange}
+                        style={{ 
+                          margin: "16px 0",
+                          transform: 'scale(0.85)',
+                          transformOrigin: 'center'
+                        }}
+                      />
+                      {captchaError && (
+                        <Typography color="error" variant="body2" sx={{ mt: 1 }}>
+                          {captchaError}
+                        </Typography>
+                      )}
+                    </Box>
+                  </div>
+                </div>
               </div>
             </div>
-
-            <Box display="flex" alignItems="center" sx={{ mt: 2 }}>
-              <ReCAPTCHA
-                sitekey="YOUR_RECAPTCHA_SITE_KEY"
-                onChange={handleCaptchaChange}
-                style={{ marginLeft: 16 }}
-              />
-            </Box>
 
             <FormGroup sx={{ mt: 2 }}>
               <FormControlLabel
@@ -465,7 +518,7 @@ const TechnicalAssistanceForm = () => {
             Edit
           </Button>
           <Button
-            onClick={handleSubmit}
+            onClick={handleFinalSubmit}
             color="primary"
             variant="contained"
             className="px-3"
@@ -476,6 +529,66 @@ const TechnicalAssistanceForm = () => {
             }}
           >
             Confirm
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      {/* Success Dialog */}
+      <Dialog
+        open={isSuccessOpen}
+        onClose={handleCloseSuccessDialog}
+        maxWidth="sm"
+        fullWidth
+        PaperProps={{
+          style: {
+            borderRadius: "16px",
+            backgroundColor: "rgba(255, 255, 255, 0.95)",
+            backdropFilter: "blur(10px)",
+            width: isMobile ? "95%" : "80%",
+            margin: "auto",
+          }
+        }}
+      >
+        <DialogTitle className="text-center" style={{ fontFamily: "Poppins", fontWeight: "bold" }}>
+          <CheckCircleIcon 
+            color="success" 
+            sx={{ 
+              fontSize: 40,
+              marginBottom: 1
+            }} 
+          />
+          <Typography variant="h5" style={{ color: theme.palette.success.main }}>
+            Technical Support Request Submitted!
+          </Typography>
+        </DialogTitle>
+        <DialogContent dividers>
+          <div className="d-grid gap-3 text-center">
+            <Typography variant="body1" style={{ fontFamily: "Poppins" }}>
+              Your technical support request has been successfully submitted.
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              Our IT team will review your request and get back to you soon.
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              You will receive updates via email  {formData.email}
+            </Typography>
+          </div>
+        </DialogContent>
+        <DialogActions className="p-3 d-flex justify-content-center">
+          <Button
+            onClick={handleCloseSuccessDialog}
+            color="primary"
+            variant="contained"
+            className="px-4"
+            style={{
+              borderRadius: "8px",
+              padding: "8px 24px",
+              fontSize: isMobile ? "0.8rem" : "0.9rem",
+              textTransform: "none",
+              fontWeight: 600,
+            }}
+          >
+            Return to Home
           </Button>
         </DialogActions>
       </Dialog>
