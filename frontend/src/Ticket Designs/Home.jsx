@@ -55,8 +55,6 @@ const Home = () => {
           style={{
             top: isMobile ? "10px" : isTablet ? "20px" : "30px",
             left: isMobile ? "10px" : isTablet ? "20px" : "50px",
-            
-            
             zIndex: 2,
           }}>
           <img
@@ -76,6 +74,48 @@ const Home = () => {
             }}
           >
             Division of Imus City
+          </Typography>
+        </div>
+
+        {/* Service Desk Button */}
+        <div 
+          className="position-absolute d-flex align-items-center gap-2 p-2 p-sm-3 rounded-3"
+          style={{
+            top: isMobile ? "60px" : isTablet ? "70px" : "80px",
+            left: "50%",
+            transform: "translateX(-50%)",
+            backgroundColor: "rgba(255, 255, 255, 0.95)",
+            backdropFilter: "blur(10px)",
+            boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+            cursor: "pointer",
+            zIndex: 2,
+            transition: "all 0.3s ease-in-out",
+            border: "1px solid rgba(0, 0, 0, 0.1)",
+            "&:hover": {
+              transform: "translate(-50%, -2px)",
+              boxShadow: "0 6px 8px rgba(0, 0, 0, 0.15)",
+            }
+          }}
+          onClick={() => navigate('/service-desk')}
+        >
+          <img
+            src="/help.png"
+            alt="Service Desk"
+            width={isMobile ? 25 : isTablet ? 30 : 35}
+            height={isMobile ? 25 : isTablet ? 30 : 35}
+            className="rounded-circle"
+          />
+          <Typography
+            variant="body1"
+            style={{
+              fontFamily: "Poppins",
+              fontSize: isMobile ? "0.8rem" : isTablet ? "0.9rem" : "1rem",
+              fontWeight: 500,
+              color: theme.palette.primary.main,
+              margin: 0,
+            }}
+          >
+            Service Desk
           </Typography>
         </div>
 
@@ -126,7 +166,8 @@ const Home = () => {
                   style={{
                     cursor: "pointer",
                     transition: "transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out",
-                    backgroundColor: "rgba(255, 255, 255, 0.9)",
+                    backgroundColor: "rgba(255, 255, 255, 0.95)",
+                    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
                   }}
                   onClick={() => handleCardClick("Troubleshooting")}
                   onMouseOver={(e) => e.currentTarget.style.transform = "translateY(-5px)"}
@@ -175,7 +216,8 @@ const Home = () => {
                   style={{
                     cursor: "pointer",
                     transition: "transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out",
-                    backgroundColor: "rgba(255, 255, 255, 0.9)",
+                    backgroundColor: "rgba(255, 255, 255, 0.95)",
+                    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
                   }}
                   onClick={() => handleCardClick("Upload Documents")}
                   onMouseOver={(e) => e.currentTarget.style.transform = "translateY(-5px)"}
@@ -224,7 +266,8 @@ const Home = () => {
                   style={{
                     cursor: "pointer",
                     transition: "transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out",
-                    backgroundColor: "rgba(255, 255, 255, 0.9)",
+                    backgroundColor: "rgba(255, 255, 255, 0.95)",
+                    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
                   }}
                   onClick={() => handleCardClick("Technical Assistance")}
                   onMouseOver={(e) => e.currentTarget.style.transform = "translateY(-5px)"}
@@ -273,7 +316,8 @@ const Home = () => {
                   style={{
                     cursor: "pointer",
                     transition: "transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out",
-                    backgroundColor: "rgba(255, 255, 255, 0.9)",
+                    backgroundColor: "rgba(255, 255, 255, 0.95)",
+                    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
                   }}
                   onClick={() => handleCardClick("Account Management")}
                   onMouseOver={(e) => e.currentTarget.style.transform = "translateY(-5px)"}
@@ -320,7 +364,7 @@ const Home = () => {
       </div>
 
       {/* Footer */}
-      <div className="position-fixed bottom-0 start-50 translate-middle-x d-flex flex-column align-items-center p-1 p-sm-2 p-md-3 rounded-top-3"
+      <div className="mt-auto d-flex flex-column align-items-center p-1 p-sm-2 p-md-3 rounded-top-3"
         style={{
           backgroundColor: "rgba(0, 0, 0, 0.8)",
           width: isMobile ? "80%" : "auto",
@@ -328,6 +372,7 @@ const Home = () => {
           backdropFilter: "blur(10px)",
           boxShadow: "0 -4px 6px rgba(0, 0, 0, 0.1)",
           zIndex: 2,
+          margin: "0 auto",
         }}>
         <div className="d-flex gap-1 gap-sm-2 gap-md-3 mb-1">
           <div className="rounded-circle p-1" style={{ backgroundColor: "rgba(255, 255, 255, 0.1)" }}>

@@ -5,6 +5,7 @@ import Trouble from "./Ticket Designs/Trouble";
 import Upload from "./Ticket Designs/Upload";
 import Technical from "./Ticket Designs/Technical"; // Import the Technical component
 import Account from "./Ticket Designs/Account"; // Import the Account component
+import Service from "./Ticket Designs/ServiceDesk"; // Import the Service component
 
 const App = () => {
   return (
@@ -14,8 +15,8 @@ const App = () => {
       <Route path="/upload" element={<Upload />} />
       <Route path="/technical" element={<Technical />} />
       <Route path="/account" element={<Account />} />
+      <Route path="/service-desk" element={<Service />} />
     </Routes>
   );
 };
-
 export default App;
