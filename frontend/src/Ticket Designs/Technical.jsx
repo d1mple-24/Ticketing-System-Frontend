@@ -18,11 +18,22 @@ import {
   List,
   ListItem,
   ListItemText,
+  useTheme,
+  useMediaQuery,
+  Container,
+  Paper,
 } from "@mui/material";
-import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ReCAPTCHA from "react-google-recaptcha";
+import { useNavigate } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const TechnicalAssistanceForm = () => {
+  const theme = useTheme();
+  const navigate = useNavigate();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isTablet = useMediaQuery(theme.breakpoints.between('sm', 'md'));
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -98,186 +109,326 @@ const TechnicalAssistanceForm = () => {
     setSnackbarOpen(false);
   };
 
-  const handleBack = () => {
-    window.location.href = "/";
+  const goBackToHome = () => {
+    navigate("/");
   };
 
   return (
-    <Box
-      display="flex"
-      flexDirection="column"
-      alignItems="center"
-      justifyContent="center"
-      minHeight="100vh"
-      sx={{
-        backgroundImage: "url('/backgroundlogin.png')",
-        backgroundSize: "cover",
-        backgroundRepeat: "no-repeat",
-        backgroundPosition: "center",
-        padding: 2,
-        padding: "0",
-      }}
-    >
-      <Box
-        position="absolute"
-        top={16}
-        left={16}
-        display="flex"
-        alignItems="center"
-        gap={1}
-        marginLeft={10}
-      >
-        <img
-          src="/logo.png"
-          alt="Logo"
-          width={90}
-          height={90}
-          style={{ borderRadius: "50%" }}
-        />
-        <Typography variant="h6" color="black" fontFamily="Poppins">
-          Division of Imus City
-        </Typography>
-      </Box>
-      <Box
-        sx={{
-          backgroundColor: "white",
-          padding: 4,
-          borderRadius: 2,
-          boxShadow: 3,
-          width: "100%",
-          maxWidth: 600,
-          position: "relative",
-        }}
-      >
+    <div className="min-vh-100 position-relative overflow-hidden" style={{
+      backgroundImage: "url(/backgroundlogin.png)",
+      backgroundSize: "100% 100%",
+      backgroundPosition: "center",
+      backgroundRepeat: "no-repeat",
+      backgroundAttachment: "fixed",
+      minHeight: "100vh",
+      width: "100%",
+      display: "flex",
+      flexDirection: "column",
+    }}>
+      <div className="position-fixed top-0 start-0 w-100 h-100" style={{
+        backgroundColor: "rgba(255, 255, 255, 0.1)",
+        backdropFilter: "blur(5px)",
+        zIndex: 0,
+      }}></div>
+
+      <div className="position-relative flex-grow-1" style={{ zIndex: 1 }}>
+        {/* Header */}
+        <div className="position-absolute d-flex align-items-center gap-2 p-2 p-sm-3 p-md-4 rounded-3"
+          style={{
+            top: isMobile ? "10px" : isTablet ? "20px" : "30px",
+            left: isMobile ? "10px" : isTablet ? "20px" : "50px",
+            zIndex: 2,
+          }}>
+          <img
+            src="/logo.png"
+            alt="Logo"
+            width={isMobile ? 50 : isTablet ? 55 : 60}
+            height={isMobile ? 50 : isTablet ? 55 : 60}
+            className="rounded-circle"
+          />
+          <Typography
+            variant="h6"
+            className="mb-0"
+            style={{
+              fontFamily: "Poppins",
+              fontSize: isMobile ? "0.8rem" : isTablet ? "0.9rem" : "1.25rem",
+              fontWeight: 600,
+            }}
+          >
+            Division of Imus City
+          </Typography>
+        </div>
+
+        {/* Back Button */}
         <IconButton
-          onClick={handleBack}
+          onClick={goBackToHome}
+          className="position-absolute rounded-circle"
+          style={{
+            top: isMobile ? "10px" : isTablet ? "20px" : "30px",
+            right: isMobile ? "10px" : isTablet ? "20px" : "30px",
+            backgroundColor: "rgba(255, 255, 255, 0.9)",
+            padding: isMobile ? "0.5rem" : isTablet ? "0.75rem" : "1rem",
+            boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+            zIndex: 2,
+            transition: "all 0.3s ease",
+            "&:hover": {
+              backgroundColor: "rgba(255, 255, 255, 1)",
+              transform: "scale(1.05)",
+            }
+          }}
           sx={{
-            position: "absolute",
-            top: 16,
-            left: 16,
-            color: "primary.main",
+            "&:hover": {
+              backgroundColor: "rgba(255, 255, 255, 1)",
+              transform: "scale(1.05)",
+            }
           }}
         >
-          <ArrowBackIosIcon fontSize="medium" />
+          <ArrowBackIcon 
+            fontSize={isMobile ? "medium" : "large"} 
+            sx={{ 
+              color: theme.palette.primary.main,
+              transition: "all 0.3s ease",
+            }}
+          />
         </IconButton>
 
-        <Typography
-          variant="h4"
-          fontFamily="Poppins"
-          gutterBottom
-          textAlign="center"
-        >
-          Technical Assistance Form
-        </Typography>
+        {/* Main Content */}
+        <Container className="py-4" style={{
+          marginTop: isMobile ? "100px" : isTablet ? "120px" : "140px",
+          maxWidth: isMobile ? "95%" : isTablet ? "85%" : "800px",
+          position: "relative",
+          zIndex: 1,
+        }}>
+          <Paper elevation={5} className="p-3 p-sm-4 rounded-4" style={{
+            backgroundColor: "rgba(255, 255, 255, 0.95)",
+            backdropFilter: "blur(10px)",
+            border: "1px solid rgba(255, 255, 255, 0.2)",
+          }}>
+            <Typography
+              variant="h4"
+              className="text-center mb-4"
+              style={{
+                fontFamily: "Poppins",
+                fontSize: isMobile ? "1.5rem" : "1.75rem",
+                fontWeight: "bold",
+                color: theme.palette.primary.main,
+              }}
+            >
+              Technical Assistance Form
+            </Typography>
 
-        <TextField
-          fullWidth
-          label="Name"
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-          required
-          sx={{ mt: 2 }}
-        />
-        <TextField
-          fullWidth
-          label="Email Address"
-          name="email"
-          type="email"
-          value={formData.email}
-          onChange={handleChange}
-          required
-          sx={{ mt: 2 }}
-        />
-        <TextField
-          fullWidth
-          label="Contact Number"
-          name="contactNumber"
-          value={formData.contactNumber}
-          onChange={handleChange}
-          inputProps={{ maxLength: 11 }}
-          required
-          sx={{ mt: 2 }}
-          placeholder="Enter an 11-digit number"
-        />
-        <TextField
-          select
-          fullWidth
-          label="Department"
-          name="department"
-          value={formData.department}
-          onChange={handleChange}
-          required
-          sx={{ mt: 2 }}
-        >
-          {departments.map((dept, index) => (
-            <MenuItem key={index} value={dept}>
-              {dept}
-            </MenuItem>
-          ))}
-        </TextField>
-        <TextField
-          select
-          fullWidth
-          label="Issue Type"
-          name="issueType"
-          value={formData.issueType}
-          onChange={handleChange}
-          required
-          sx={{ mt: 2 }}
-        >
-          {issueTypes.map((issue, index) => (
-            <MenuItem key={index} value={issue}>
-              {issue}
-            </MenuItem>
-          ))}
-        </TextField>
-        <Box display="flex" alignItems="center" sx={{ mt: 2 }}>
-          <TextField
-            fullWidth
-            multiline
-            rows={4}
-            label="Issue Description"
-            name="description"
-            value={formData.description}
-            onChange={handleChange}
-            placeholder="Provide a brief description of the issue"
-          />
-          <ReCAPTCHA
-            sitekey="YOUR_RECAPTCHA_SITE_KEY"
-            onChange={handleCaptchaChange}
-            style={{ marginLeft: 16 }}
-          />
-        </Box>
+            <div className="row g-2">
+              <div className="col-12 col-sm-6">
+                <TextField
+                  fullWidth
+                  label="Name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                  margin="normal"
+                />
+              </div>
+              <div className="col-12 col-sm-6">
+                <TextField
+                  fullWidth
+                  label="Email Address"
+                  name="email"
+                  type="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                  margin="normal"
+                />
+              </div>
+              <div className="col-12 col-sm-6">
+                <TextField
+                  fullWidth
+                  label="Contact Number"
+                  name="contactNumber"
+                  value={formData.contactNumber}
+                  onChange={handleChange}
+                  inputProps={{ maxLength: 11 }}
+                  required
+                  margin="normal"
+                  placeholder="Enter an 11-digit number"
+                />
+              </div>
+              <div className="col-12 col-sm-6">
+                <TextField
+                  select
+                  fullWidth
+                  label="Department"
+                  name="department"
+                  value={formData.department}
+                  onChange={handleChange}
+                  required
+                  margin="normal"
+                >
+                  {departments.map((dept, index) => (
+                    <MenuItem key={index} value={dept}>
+                      {dept}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              </div>
+              <div className="col-12">
+                <TextField
+                  select
+                  fullWidth
+                  label="Issue Type"
+                  name="issueType"
+                  value={formData.issueType}
+                  onChange={handleChange}
+                  required
+                  margin="normal"
+                >
+                  {issueTypes.map((issue, index) => (
+                    <MenuItem key={index} value={issue}>
+                      {issue}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              </div>
+              <div className="col-12">
+                <TextField
+                  fullWidth
+                  multiline
+                  rows={4}
+                  label="Issue Description"
+                  name="description"
+                  value={formData.description}
+                  onChange={handleChange}
+                  required
+                  margin="normal"
+                  placeholder="Provide a brief description of the issue"
+                />
+              </div>
+            </div>
 
-        <FormGroup sx={{ mt: 2 }}>
-          <FormControlLabel
-            control={
-              <Checkbox
-                name="consent"
-                checked={formData.consent}
-                onChange={handleChange}
+            <Box display="flex" alignItems="center" sx={{ mt: 2 }}>
+              <ReCAPTCHA
+                sitekey="YOUR_RECAPTCHA_SITE_KEY"
+                onChange={handleCaptchaChange}
+                style={{ marginLeft: 16 }}
               />
-            }
-            label="I consent to the processing of my information for technical assistance."
-          />
-        </FormGroup>
+            </Box>
 
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={handleReview}
-          fullWidth
-          sx={{ mt: 2 }}
-        >
-          Submit
-        </Button>
-      </Box>
+            <FormGroup sx={{ mt: 2 }}>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    name="consent"
+                    checked={formData.consent}
+                    onChange={handleChange}
+                  />
+                }
+                label="I consent to the processing of my information for technical assistance."
+              />
+            </FormGroup>
+
+            <div className="mt-4 d-flex justify-content-center gap-2">
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={handleReview}
+                className="px-3"
+                style={{
+                  borderRadius: "8px",
+                  padding: "6px 16px",
+                  fontSize: isMobile ? "0.8rem" : "0.9rem",
+                }}
+              >
+                Submit
+              </Button>
+              <Button
+                variant="outlined"
+                color="secondary"
+                onClick={() => {
+                  setFormData({
+                    name: "", email: "", contactNumber: "", department: "",
+                    issueType: "", description: "", consent: false,
+                  });
+                  setCaptchaVerified(false);
+                }}
+                className="px-3"
+                style={{
+                  borderRadius: "8px",
+                  padding: "6px 16px",
+                  fontSize: isMobile ? "0.8rem" : "0.9rem",
+                }}
+              >
+                Clear
+              </Button>
+            </div>
+          </Paper>
+        </Container>
+
+        {/* Footer */}
+        <div className="d-flex flex-column align-items-center p-1 p-sm-2 p-md-3 rounded-top-3 mt-4"
+          style={{
+            backgroundColor: "rgba(0, 0, 0, 0.8)",
+            width: isMobile ? "80%" : "auto",
+            maxWidth: "500px",
+            backdropFilter: "blur(10px)",
+            boxShadow: "0 -4px 6px rgba(0, 0, 0, 0.1)",
+            zIndex: 2,
+            margin: "0 auto",
+          }}>
+          <div className="d-flex gap-1 gap-sm-2 gap-md-3 mb-1">
+            <div className="rounded-circle p-1" style={{ backgroundColor: "rgba(255, 255, 255, 0.1)" }}>
+              <img
+                src="/lugo1.png"
+                alt="lugo1"
+                width={isMobile ? 25 : isTablet ? 35 : 40}
+                height={isMobile ? 25 : isTablet ? 35 : 40}
+                className="rounded-circle"
+              />
+            </div>
+            <div className="rounded-circle p-1" style={{ backgroundColor: "rgba(255, 255, 255, 0.1)" }}>
+              <img
+                src="/lugo2.png"
+                alt="lugo2"
+                width={isMobile ? 25 : isTablet ? 35 : 40}
+                height={isMobile ? 25 : isTablet ? 35 : 40}
+                className="rounded-circle"
+              />
+            </div>
+          </div>
+          <Typography
+            variant="body2"
+            className="text-white text-center"
+            style={{
+              fontFamily: "Poppins",
+              fontSize: isMobile ? "0.6rem" : isTablet ? "0.7rem" : "0.75rem",
+              fontWeight: 600,
+            }}
+          >
+            &copy; 2025 Division Office of Imus City. All rights reserved.
+          </Typography>
+        </div>
+      </div>
 
       {/* Review Dialog */}
-      <Dialog open={reviewDialogOpen} onClose={() => setReviewDialogOpen(false)}>
-        <DialogTitle>Review Your Information</DialogTitle>
-        <DialogContent>
+      <Dialog
+        open={reviewDialogOpen}
+        onClose={() => setReviewDialogOpen(false)}
+        maxWidth="sm"
+        fullWidth
+        PaperProps={{
+          style: {
+            borderRadius: "16px",
+            backgroundColor: "rgba(255, 255, 255, 0.95)",
+            backdropFilter: "blur(10px)",
+            width: isMobile ? "95%" : "80%",
+            margin: "auto",
+          }
+        }}
+      >
+        <DialogTitle className="text-center" style={{ fontFamily: "Poppins", fontWeight: "bold" }}>
+          📝 Review Your Submission
+        </DialogTitle>
+        <DialogContent dividers>
           <List>
             <ListItem>
               <ListItemText primary="Name" secondary={formData.name} />
@@ -286,33 +437,44 @@ const TechnicalAssistanceForm = () => {
               <ListItemText primary="Email" secondary={formData.email} />
             </ListItem>
             <ListItem>
-              <ListItemText
-                primary="Contact Number"
-                secondary={formData.contactNumber}
-              />
+              <ListItemText primary="Contact Number" secondary={formData.contactNumber} />
             </ListItem>
             <ListItem>
-              <ListItemText
-                primary="Department"
-                secondary={formData.department}
-              />
+              <ListItemText primary="Department" secondary={formData.department} />
             </ListItem>
             <ListItem>
               <ListItemText primary="Issue Type" secondary={formData.issueType} />
             </ListItem>
             <ListItem>
-              <ListItemText
-                primary="Issue Description"
-                secondary={formData.description || "No description provided"}
-              />
+              <ListItemText primary="Issue Description" secondary={formData.description || "No description provided"} />
             </ListItem>
           </List>
         </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setReviewDialogOpen(false)} color="secondary">
+        <DialogActions className="p-3 d-flex justify-content-center gap-2">
+          <Button
+            onClick={() => setReviewDialogOpen(false)}
+            color="secondary"
+            variant="outlined"
+            className="px-3"
+            style={{
+              borderRadius: "8px",
+              padding: "6px 16px",
+              fontSize: isMobile ? "0.8rem" : "0.9rem",
+            }}
+          >
             Edit
           </Button>
-          <Button onClick={handleSubmit} color="primary" variant="contained">
+          <Button
+            onClick={handleSubmit}
+            color="primary"
+            variant="contained"
+            className="px-3"
+            style={{
+              borderRadius: "8px",
+              padding: "6px 16px",
+              fontSize: isMobile ? "0.8rem" : "0.9rem",
+            }}
+          >
             Confirm
           </Button>
         </DialogActions>
@@ -332,50 +494,7 @@ const TechnicalAssistanceForm = () => {
           ✅ Your form has been successfully submitted!
         </Alert>
       </Snackbar>
-
-      {/* Footer */}
-      <Box
-        component="footer"
-        position="absolute"
-        bottom={16}
-        right={16}
-        display="flex"
-        flexDirection="column"
-        alignItems="center"
-        sx={{
-          backgroundColor: "rgba(0, 0, 0, 0.7)",
-          padding: 2,
-          borderRadius: 2,
-        }}
-      >
-        <Box display="flex" gap={2} mb={1}>
-          <img
-            src="/lugo1.png"
-            alt="lugo1"
-            width={90}
-            height={90}
-            style={{ borderRadius: "50%" }}
-          />
-          <img
-            src="/lugo2.png"
-            alt="lugo2"
-            width={90}
-            height={90}
-            style={{ borderRadius: "50%" }}
-          />
-        </Box>
-        <Typography
-          variant="body2"
-          color="white"
-          fontStyle="normal"
-          fontWeight={600}
-          fontFamily="Poppins"
-          textAlign="center"
-        >
-          &copy; 2025 Division Office of Imus City. All rights reserved.
-        </Typography>
-      </Box>
-    </Box>
+    </div>
   );
 };
 
