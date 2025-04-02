@@ -277,12 +277,16 @@ const Upload = () => {
                                         border: captchaError ? "1px solid #f44336" : "none",
                                         animation: captchaError ? "shake 0.5s" : "none",
                                         width: "304px",
-                                        margin: "0 auto"
+                                        margin: "0 auto",
+                                        fontFamily: "Poppins, sans-serif"
                                     }}>
                                     <ReCAPTCHA
                                         sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
                                         onChange={handleCaptchaChange}
-                                        style={{ transform: "scale(0.85)" }}
+                                        style={{ 
+                                            transform: "scale(0.85)",
+                                            fontFamily: "Poppins, sans-serif"
+                                        }}
                                     />
                                     {captchaError && (
                                         <Typography 
@@ -290,7 +294,7 @@ const Upload = () => {
                                             color="error" 
                                             className="mt-2"
                                             style={{ 
-                                                fontFamily: "Poppins",
+                                                fontFamily: "Poppins, sans-serif",
                                                 animation: "shake 0.5s",
                                                 textAlign: "center"
                                             }}
