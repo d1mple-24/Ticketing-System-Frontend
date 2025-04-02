@@ -8,6 +8,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { useNavigate } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import ReCAPTCHA from "react-google-recaptcha";
 
 const Upload = () => {
     const theme = useTheme();
@@ -23,6 +24,8 @@ const Upload = () => {
     const [subject, setSubject] = useState("");
     const [openConfirmation, setOpenConfirmation] = useState(false);
     const [isSuccessOpen, setIsSuccessOpen] = useState(false);
+    const [captchaVerified, setCaptchaVerified] = useState(false);
+    const [captchaError, setCaptchaError] = useState("");
 
     const locations = ["SDO - Imus City", "Schools - Imus City"];
     const priorityLevels = ["Low", "Medium", "High", "Critical"];
@@ -42,6 +45,10 @@ const Upload = () => {
         }
         if (selectedFiles.length === 0) {
             alert("Please select files to upload.");
+            return;
+        }
+        if (!captchaVerified) {
+            setCaptchaError("Please complete the CAPTCHA verification");
             return;
         }
         setOpenConfirmation(true);
@@ -69,6 +76,11 @@ const Upload = () => {
 
     const goBackToHome = () => {
         navigate("/");
+    };
+
+    const handleCaptchaChange = (value) => {
+        setCaptchaVerified(!!value);
+        setCaptchaError("");
     };
 
     return (
@@ -258,6 +270,35 @@ const Upload = () => {
                                     fullWidth
                                     margin="normal"
                                 />
+                            </div>
+                            <div className="col-12 d-flex justify-content-center">
+                                <div className="d-flex flex-column align-items-center p-3 rounded-3" 
+                                    style={{ 
+                                        border: captchaError ? "1px solid #f44336" : "none",
+                                        animation: captchaError ? "shake 0.5s" : "none",
+                                        width: "304px",
+                                        margin: "0 auto"
+                                    }}>
+                                    <ReCAPTCHA
+                                        sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
+                                        onChange={handleCaptchaChange}
+                                        style={{ transform: "scale(0.85)" }}
+                                    />
+                                    {captchaError && (
+                                        <Typography 
+                                            variant="caption" 
+                                            color="error" 
+                                            className="mt-2"
+                                            style={{ 
+                                                fontFamily: "Poppins",
+                                                animation: "shake 0.5s",
+                                                textAlign: "center"
+                                            }}
+                                        >
+                                            {captchaError}
+                                        </Typography>
+                                    )}
+                                </div>
                             </div>
                         </div>
 

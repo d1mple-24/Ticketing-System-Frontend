@@ -86,7 +86,7 @@ const Home = () => {
             top: isMobile ? "10px" : isTablet ? "20px" : "30px",
             right: isMobile ? "10px" : isTablet ? "20px" : "30px",
             backgroundColor: "rgba(255, 255, 255, 0.9)",
-            padding: isMobile ? "0.5rem" : isTablet ? "0.75rem" : "1rem",
+            padding: isMobile ? "0.3rem" : isTablet ? "0.4rem" : "0.5rem",
             boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
             cursor: "pointer",
             zIndex: 2,
@@ -98,8 +98,8 @@ const Home = () => {
           <img
             src="/admin.png"
             alt="Profile"
-            width={isMobile ? 25 : isTablet ? 28 : 30}
-            height={isMobile ? 25 : isTablet ? 28 : 30}
+            width={isMobile ? 18 : isTablet ? 20 : 22}
+            height={isMobile ? 18 : isTablet ? 20 : 22}
             className="rounded-circle"
           />
         </div>
