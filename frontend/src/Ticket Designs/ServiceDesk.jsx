@@ -17,6 +17,10 @@ const ServiceDesk = () => {
     }
   };
 
+  const handleAdminLogin = () => {
+    navigate('/admin');
+  };
+
   return (
     <div className="min-vh-100 d-flex flex-column position-relative overflow-hidden" style={{
       backgroundImage: "url(/backgroundlogin.png)",
@@ -35,6 +39,30 @@ const ServiceDesk = () => {
 
       {/* Wrapper for content to ensure proper z-index */}
       <div className="position-relative flex-grow-1" style={{ zIndex: 1 }}>
+        {/* Admin Login Logo */}
+        <div
+          className="position-absolute rounded-circle"
+          style={{
+            top: isMobile ? "10px" : isTablet ? "20px" : "30px",
+            right: isMobile ? "10px" : isTablet ? "20px" : "30px",
+            backgroundColor: "rgba(255, 255, 255, 0.9)",
+            padding: isMobile ? "0.3rem" : isTablet ? "0.4rem" : "0.5rem",
+            boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+            cursor: "pointer",
+            zIndex: 2,
+            transition: "transform 0.3s ease-in-out",
+          }}
+          onClick={handleAdminLogin}
+        >
+          <img
+            src="/admin.png"
+            alt="Admin"
+            width={isMobile ? 18 : isTablet ? 20 : 22}
+            height={isMobile ? 18 : isTablet ? 20 : 22}
+            className="rounded-circle"
+          />
+        </div>
+
         {/* Header */}
         <div className="position-absolute d-flex align-items-center gap-2 p-2 p-sm-3 p-md-4 rounded-3"
           style={{

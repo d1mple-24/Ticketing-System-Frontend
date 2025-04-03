@@ -23,6 +23,9 @@ const Trouble = () => {
         name: "",
         email: "",
         location: "",
+        department: "",
+        schoolType: "",
+        school: "",
         date: "",
         equipmentType: "",
         model: "",
@@ -39,6 +42,45 @@ const Trouble = () => {
 
     const priorityLevels = ["Low", "Medium", "High", "Critical"];
     const locations = ["SDO - Imus City", "Schools - Imus City"];
+    const departments = [
+        "Office of the Schools Division Superintendent",
+        "Curriculum Implementation Division",
+        "School Governance and Operations Division",
+        "Administrative Division",
+        "Finance Division",
+        "Human Resource Development Division",
+        "Planning and Research Division",
+        "Legal Unit",
+        "Public Affairs Unit",
+        "Information and Communications Technology Unit"
+    ];
+    const schoolTypes = ["Elementary", "High School", "Senior High School", "Integrated School"];
+    const schools = {
+        "Elementary": [
+            "Imus Pilot Elementary School",
+            "Bayan Luma Elementary School",
+            "Bucandala Elementary School",
+            "Poblacion Elementary School"
+        ],
+        "High School": [
+            "Imus National High School",
+            "Bayan Luma National High School",
+            "Bucandala National High School",
+            "Poblacion National High School"
+        ],
+        "Senior High School": [
+            "Imus Senior High School",
+            "Bayan Luma Senior High School",
+            "Bucandala Senior High School",
+            "Poblacion Senior High School"
+        ],
+        "Integrated School": [
+            "Imus Integrated School",
+            "Bayan Luma Integrated School",
+            "Bucandala Integrated School",
+            "Poblacion Integrated School"
+        ]
+    };
     const equipmentModels = ["Model A", "Model B", "Model C", "Model D"];
     const equipmentTypes = ["Computer", "Printer", "Scanner", "Other"];
 
@@ -274,6 +316,68 @@ const Trouble = () => {
                                         ))}
                                     </TextField>
                                 </div>
+                                {formData.location === "SDO - Imus City" && (
+                                    <div className="col-12">
+                                        <TextField
+                                            select
+                                            fullWidth
+                                            label="Department"
+                                            name="department"
+                                            value={formData.department}
+                                            onChange={handleChange}
+                                            required
+                                            margin="normal"
+                                        >
+                                            {departments.map((dept, index) => (
+                                                <MenuItem key={index} value={dept}>
+                                                    {dept}
+                                                </MenuItem>
+                                            ))}
+                                        </TextField>
+                                    </div>
+                                )}
+                                {formData.location === "Schools - Imus City" && (
+                                    <>
+                                        <div className="col-12">
+                                            <TextField
+                                                select
+                                                fullWidth
+                                                label="School Type"
+                                                name="schoolType"
+                                                value={formData.schoolType}
+                                                onChange={handleChange}
+                                                required
+                                                margin="normal"
+                                            >
+                                                {schoolTypes.map((type, index) => (
+                                                    <MenuItem key={index} value={type}>
+                                                        {type}
+                                                    </MenuItem>
+                                                ))}
+                                            </TextField>
+                                        </div>
+                                        {formData.schoolType && (
+                                            <div className="col-12">
+                                                <TextField
+                                                    select
+                                                    fullWidth
+                                                    label="School"
+                                                    name="school"
+                                                    value={formData.school}
+                                                    onChange={handleChange}
+                                                    required
+                                                    margin="normal"
+                                                >
+                                                    {schools[formData.schoolType]?.map((school, index) => (
+                                                        <MenuItem key={index} value={school}>
+                                                            {school}
+                                                        </MenuItem>
+                                                    ))}
+                                                </TextField>
+                                            </div>
+                                        )}
+                                    </>
+                                )}
                                 <div className="col-12 col-sm-6">
                                     <TextField
                                         fullWidth
@@ -536,6 +640,15 @@ const Trouble = () => {
                         <div>
                             <Typography variant="subtitle1" fontWeight="bold" color="primary">📍 Request Details</Typography>
                             <Typography><strong>Location:</strong> {formData.location}</Typography>
+                            {formData.location === "SDO - Imus City" && (
+                                <Typography><strong>Department:</strong> {formData.department}</Typography>
+                            )}
+                            {formData.location === "Schools - Imus City" && (
+                                <>
+                                    <Typography><strong>School Type:</strong> {formData.schoolType}</Typography>
+                                    <Typography><strong>School:</strong> {formData.school}</Typography>
+                                </>
+                            )}
                             <Typography><strong>Date:</strong> {formData.date}</Typography>
                             <Typography><strong>Equipment Type:</strong> {formData.equipmentType}</Typography>
                             <Typography><strong>Model:</strong> {formData.model}</Typography>
