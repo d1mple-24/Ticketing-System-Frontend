@@ -9,9 +9,12 @@ import {
   useMediaQuery,
   IconButton,
   FormControlLabel,
-  Checkbox
+  Checkbox,
+  Snackbar,
+  Alert
 } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from 'react-router-dom';
 
@@ -21,6 +24,7 @@ const Existing = () => {
     email: '',
     rememberEmail: false
   });
+  const [openSnackbar, setOpenSnackbar] = useState(false);
   const theme = useTheme();
   const navigate = useNavigate();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -36,8 +40,18 @@ const Existing = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    // Show success snackbar
+    setOpenSnackbar(true);
     // Handle form submission here
     console.log('Form submitted:', formData);
+    // Navigate to home page after 2 seconds
+    setTimeout(() => {
+      navigate('/');
+    }, 2000);
+  };
+
+  const handleCloseSnackbar = () => {
+    setOpenSnackbar(false);
   };
 
   return (
@@ -129,6 +143,8 @@ const Existing = () => {
                   fontSize: isMobile ? "1.5rem" : isTablet ? "1.75rem" : "2rem",
                   fontWeight: 600,
                   color: theme.palette.primary.main,
+                  marginBottom: "2rem",
+                  textShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
                 }}
               >
                 Check Existing Ticket
@@ -139,16 +155,39 @@ const Existing = () => {
                   label="Enter Tracking ID"
                   name="trackingId"
                   value={formData.trackingId}
-                  onChange={handleChange}
+                  onChange={(e) => {
+                    const value = e.target.value.replace(/[^0-9]/g, '');
+                    setFormData(prevState => ({
+                      ...prevState,
+                      trackingId: value
+                    }));
+                  }}
                   margin="normal"
                   required
+                  inputProps={{
+                    min: 1,
+                    pattern: "[0-9]*",
+                    inputMode: "numeric",
+                    autoComplete: "off"
+                  }}
                   sx={{
                     '& .MuiOutlinedInput-root': {
                       borderRadius: '12px',
                       backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                      transition: 'all 0.3s ease-in-out',
+                      '&:hover': {
+                        backgroundColor: 'rgba(255, 255, 255, 1)',
+                        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+                      },
+                      '&.Mui-focused': {
+                        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+                      }
                     },
                     '& .MuiInputLabel-root': {
                       fontFamily: 'Poppins',
+                      '&.Mui-focused': {
+                        color: theme.palette.primary.main,
+                      }
                     },
                   }}
                 />
@@ -165,9 +204,20 @@ const Existing = () => {
                     '& .MuiOutlinedInput-root': {
                       borderRadius: '12px',
                       backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                      transition: 'all 0.3s ease-in-out',
+                      '&:hover': {
+                        backgroundColor: 'rgba(255, 255, 255, 1)',
+                        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+                      },
+                      '&.Mui-focused': {
+                        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+                      }
                     },
                     '& .MuiInputLabel-root': {
                       fontFamily: 'Poppins',
+                      '&.Mui-focused': {
+                        color: theme.palette.primary.main,
+                      }
                     },
                   }}
                 />
@@ -182,6 +232,10 @@ const Existing = () => {
                         '&.Mui-checked': {
                           color: theme.palette.primary.main,
                         },
+                        '&:hover': {
+                          backgroundColor: 'rgba(0, 123, 255, 0.1)',
+                        },
+                        transition: 'all 0.3s ease-in-out',
                       }}
                     />
                   }
@@ -190,12 +244,21 @@ const Existing = () => {
                       sx={{
                         fontFamily: 'Poppins',
                         fontSize: isMobile ? '0.8rem' : '0.875rem',
+                        color: 'rgba(0, 0, 0, 0.7)',
+                        fontWeight: 500,
                       }}
                     >
                       Remember my email
                     </Typography>
                   }
-                  sx={{ mt: 1 }}
+                  sx={{ 
+                    mt: 1,
+                    '&:hover': {
+                      backgroundColor: 'rgba(0, 123, 255, 0.05)',
+                      borderRadius: '8px',
+                      transition: 'all 0.3s ease-in-out',
+                    }
+                  }}
                 />
                 <Button
                   type="submit"
@@ -208,10 +271,13 @@ const Existing = () => {
                     fontFamily: 'Poppins',
                     textTransform: 'none',
                     fontSize: isMobile ? '0.9rem' : '1rem',
+                    fontWeight: 600,
                     boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                    background: `linear-gradient(45deg, ${theme.palette.primary.main} 30%, ${theme.palette.primary.dark} 90%)`,
                     '&:hover': {
                       transform: 'translateY(-2px)',
-                      boxShadow: '0 6px 8px rgba(0, 0, 0, 0.15)',
+                      boxShadow: '0 6px 12px rgba(0, 0, 0, 0.15)',
+                      background: `linear-gradient(45deg, ${theme.palette.primary.dark} 30%, ${theme.palette.primary.main} 90%)`,
                     },
                     transition: 'all 0.3s ease-in-out',
                   }}
@@ -223,6 +289,42 @@ const Existing = () => {
           </Box>
         </Container>
       </div>
+
+      {/* Snackbar for success message */}
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={2000}
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+      >
+        <Alert 
+          onClose={handleCloseSnackbar} 
+          severity="success" 
+          sx={{ 
+            width: '100%',
+            fontFamily: 'Poppins',
+            borderRadius: '12px',
+            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+            '& .MuiAlert-icon': {
+              fontSize: '2rem',
+              marginRight: '8px',
+              color: theme.palette.success.main,
+            },
+            '& .MuiAlert-message': {
+              fontSize: isMobile ? '0.9rem' : '1rem',
+              fontWeight: 500,
+              color: theme.palette.success.dark,
+            }
+          }}
+        >
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+            <CheckCircleIcon />
+            <Typography>
+              Ticket search submitted successfully!
+            </Typography>
+          </Box>
+        </Alert>
+      </Snackbar>
 
       {/* Footer */}
       <div className="d-flex flex-column align-items-center p-1 p-sm-2 p-md-3 rounded-top-3 mt-4"
