@@ -248,9 +248,19 @@ const Trouble = () => {
                                         type="number"
                                         name="name"
                                         value={formData.name}
-                                        onChange={handleChange}
+                                        onChange={(e) => {
+                                            // Only allow numbers
+                                            const value = e.target.value.replace(/[^0-9]/g, '');
+                                            setFormData({ ...formData, name: value });
+                                        }}
                                         required
                                         margin="normal"
+                                        inputProps={{
+                                            min: 1,
+                                            pattern: "[0-9]*",
+                                            inputMode: "numeric",
+                                            autoComplete: "off"
+                                        }}
                                         InputProps={{
                                             endAdornment: formData.name && (
                                                 <InputAdornment position="end">

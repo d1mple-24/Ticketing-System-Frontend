@@ -51,8 +51,11 @@ const ServiceDesk = () => {
             cursor: "pointer",
             zIndex: 2,
             transition: "transform 0.3s ease-in-out",
+            '&:hover': {
+              transform: "scale(1.05)",
+            },
           }}
-          onClick={handleAdminLogin}
+          
         >
           <img
             src="/admin.png"
