@@ -213,6 +213,8 @@ const Trouble = () => {
                         margin: "0 auto",
                         display: "flex",
                         flexDirection: "column",
+                        minHeight: "calc(100vh - 140px)",
+                        marginBottom: "80px",
                     }}>
                         <Typography
                             variant="h4"
@@ -573,50 +575,55 @@ const Trouble = () => {
                         </form>
                     </Paper>
 
-                    
-                  {/* Footer */}
-        <div className="d-flex flex-column align-items-center p-1 p-sm-2 p-md-3 rounded-top-3 mt-4"
-          style={{
-            backgroundColor: "rgba(0, 0, 0, 0.8)",
-            width: isMobile ? "80%" : "auto",
-            maxWidth: "500px",
-            backdropFilter: "blur(10px)",
-            boxShadow: "0 -4px 6px rgba(0, 0, 0, 0.1)",
-            zIndex: 2,
-            margin: "0 auto",
-          }}>
-          <div className="d-flex gap-1 gap-sm-2 gap-md-3 mb-1">
-            <div className="rounded-circle p-1" style={{ backgroundColor: "rgba(255, 255, 255, 0.1)" }}>
-              <img
-                src="/lugo1.png"
-                alt="lugo1"
-                width={isMobile ? 25 : isTablet ? 35 : 40}
-                height={isMobile ? 25 : isTablet ? 35 : 40}
-                className="rounded-circle"
-              />
-            </div>
-            <div className="rounded-circle p-1" style={{ backgroundColor: "rgba(255, 255, 255, 0.1)" }}>
-              <img
-                src="/lugo2.png"
-                alt="lugo2"
-                width={isMobile ? 25 : isTablet ? 35 : 40}
-                height={isMobile ? 25 : isTablet ? 35 : 40}
-                className="rounded-circle"
-              />
-            </div>
-          </div>
-          <Typography
-            variant="body2"
-            className="text-white text-center"
-            style={{
-              fontFamily: "Poppins",
-              fontSize: isMobile ? "0.6rem" : isTablet ? "0.7rem" : "0.75rem",
-              fontWeight: 600,
-            }}
-          >
-            &copy; 2025 Division Office of Imus City. All rights reserved.
-          </Typography>
-        </div>
+                    {/* Footer */}
+                    <div className="d-flex flex-column align-items-center p-1 rounded-top-3"
+                        style={{
+                            backgroundColor: "rgba(0, 0, 0, 0.8)",
+                            width: "100%",
+                            backdropFilter: "blur(10px)",
+                            boxShadow: "0 -4px 6px rgba(0, 0, 0, 0.1)",
+                            zIndex: 999,
+                            position: "fixed",
+                            bottom: 0,
+                            left: 0,
+                            right: 0,
+                            padding: "8px 0",
+                            transform: "translateZ(0)",
+                            willChange: "transform",
+                        }}>
+                        <div className="d-flex gap-1 mb-1">
+                            <div className="rounded-circle p-1" style={{ backgroundColor: "rgba(255, 255, 255, 0.1)" }}>
+                                <img
+                                    src="/lugo1.png"
+                                    alt="lugo1"
+                                    width={isMobile ? 20 : 25}
+                                    height={isMobile ? 20 : 25}
+                                    className="rounded-circle"
+                                />
+                            </div>
+                            <div className="rounded-circle p-1" style={{ backgroundColor: "rgba(255, 255, 255, 0.1)" }}>
+                                <img
+                                    src="/lugo2.png"
+                                    alt="lugo2"
+                                    width={isMobile ? 20 : 25}
+                                    height={isMobile ? 20 : 25}
+                                    className="rounded-circle"
+                                />
+                            </div>
+                        </div>
+                        <Typography
+                            variant="body2"
+                            className="text-white text-center"
+                            style={{
+                                fontFamily: "Poppins",
+                                fontSize: isMobile ? "0.5rem" : "0.6rem",
+                                fontWeight: 600,
+                                marginBottom: "2px",
+                            }}
+                        >
+                            &copy; 2025 Division Office of Imus City. All rights reserved.
+                        </Typography>
+                    </div>
                 </Container>
             </div>
 
