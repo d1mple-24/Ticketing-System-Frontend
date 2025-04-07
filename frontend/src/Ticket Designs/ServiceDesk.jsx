@@ -74,7 +74,7 @@ const ServiceDesk = () => {
             zIndex: 2,
           }}>
           <img
-            src="/logo.png"
+            src="/Ticket1.png"
             alt="Logo"
             width={isMobile ? 50 : isTablet ? 55 : 60}
             height={isMobile ? 50 : isTablet ? 55 : 60}

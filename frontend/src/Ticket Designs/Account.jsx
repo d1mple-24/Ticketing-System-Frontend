@@ -82,8 +82,8 @@ const AccountManagement = () => {
             flexDirection: "column",
         }}>
             <div className="position-fixed top-0 start-0 w-100 h-100" style={{
-                backgroundColor: "rgba(255, 255, 255, 0.1)",
-                backdropFilter: "blur(5px)",
+                backgroundColor: "rgba(255, 255, 255, 0.02)",
+                backdropFilter: "blur(1px)",
                 zIndex: 0,
             }}></div>
 
@@ -96,7 +96,7 @@ const AccountManagement = () => {
                         zIndex: 2,
                     }}>
                     <img
-                        src="/logo.png"
+                        src="/Ticket1.png"
                         alt="Logo"
                         width={isMobile ? 50 : isTablet ? 55 : 60}
                         height={isMobile ? 50 : isTablet ? 55 : 60}
@@ -295,7 +295,7 @@ const AccountManagement = () => {
                     {/* Footer */}
                     <div className="d-flex flex-column align-items-center p-1 rounded-top-3"
                         style={{
-                            backgroundColor: "rgba(0, 0, 0, 0.8)",
+                            backgroundColor: "rgba(0, 0, 0, 0.7)",
                             width: "100%",
                             backdropFilter: "blur(10px)",
                             boxShadow: "0 -4px 6px rgba(0, 0, 0, 0.1)",
@@ -307,7 +307,6 @@ const AccountManagement = () => {
                             padding: "8px 0",
                             transform: "translateZ(0)",
                             willChange: "transform",
-                            pointerEvents: "none",
                             maxWidth: "100vw",
                             overflow: "hidden",
                         }}>
