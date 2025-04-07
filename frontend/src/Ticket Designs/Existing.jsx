@@ -97,7 +97,7 @@ const Existing = () => {
               fontWeight: 600,
             }}
           >
-            Division of Imus City
+            Ticketing System
           </Typography>
         </div>
 
@@ -339,6 +339,10 @@ const Existing = () => {
           left: 0,
           right: 0,
           padding: "8px 0",
+          transform: "translateZ(0)",
+          willChange: "transform",
+          maxWidth: "100vw",
+          overflow: "hidden",
         }}>
         <div className="d-flex gap-1 mb-1">
           <div className="rounded-circle p-1" style={{ backgroundColor: "rgba(255, 255, 255, 0.1)" }}>
@@ -368,6 +372,8 @@ const Existing = () => {
             fontSize: isMobile ? "0.5rem" : "0.6rem",
             fontWeight: 600,
             marginBottom: "2px",
+            maxWidth: "100%",
+            padding: "0 10px",
           }}
         >
           &copy; 2025 Division Office of Imus City. All rights reserved.

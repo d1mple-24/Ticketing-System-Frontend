@@ -73,7 +73,7 @@ const Home = () => {
               fontWeight: 600,
             }}
           >
-            Division of Imus City
+            Ticketing System
           </Typography>
         </div>
 
